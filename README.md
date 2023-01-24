@@ -14,7 +14,7 @@ The Generalized Two-dimensional Array (G2A) can be used to represent an n-dimens
 
 Build
 -------
-To create the keyvalues of the dataset, run`create.cpp`
+To create the keyvalues for the dataset, run`create.cpp`
 
 The number of rows for which keyvalues will be generated can be varied by changing the number in line 59 of `create.cpp` file
 <pre>
