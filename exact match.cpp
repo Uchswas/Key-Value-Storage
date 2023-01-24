@@ -70,7 +70,6 @@ void takelength()
                     int inval=atoi(pch);
                     setsize[x]=inval;
                     x++;
-
                     pch = strtok (NULL, " ");
                 }
             }
@@ -79,8 +78,7 @@ void takelength()
         }
         fclose(fp);
     }
-    for(int i=0; i<7; i++)
-        cout<<setsize[i]<<endl;
+
 }
 
 int main()
@@ -199,12 +197,5 @@ void initializemybin()
         fclose(fp);
     }
 
-    int newcnt=0;
-    set<unsigned long long int> ::iterator it;
-    for(it=binlink.begin(); it!=binlink.end(); it++)
-    {
-        unsigned long long int value=*it;
-        cout<<newcnt++<<" "<<value<<" ";
-    }
 }
 

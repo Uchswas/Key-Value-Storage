@@ -41,7 +41,6 @@ int main()
 
     cin>>columnnum;
     initializepermutation();
-    cout<<"ok";
     cout<<"Enter Value"<<endl;
     cin>>input;
     fixedvalue=findindexinvector(columnnum-1,input);
@@ -51,12 +50,6 @@ int main()
         currentvector=i;
         generatekeyvalue(i);
     }
-
-    for(int i=0;i<8;i++)
-        cout<<setsize[i]<<" ";
-    cout<<endl;
-   cout<<totalper<<endl;
-
 
     }
 
