@@ -21,7 +21,7 @@ int permutation();
 ofstream out;
 void initializepermutation();
 void initializemybin();
-int findindexinvector(int , string);
+int findindexinvector(int, string);
 set <unsigned long long int> binlink;
 void generatekeyvalue(int);
 unsigned long long int combine(long  int,long  int);
@@ -45,13 +45,13 @@ int main()
     cin>>input;
     fixedvalue=findindexinvector(columnnum-1,input);
     cout<<"Index of single key:"<<fixedvalue<<endl;
-   for(int i=0; i<totalper; i++)
+    for(int i=0; i<totalper; i++)
     {
         currentvector=i;
         generatekeyvalue(i);
     }
 
-    }
+}
 
 unsigned long long combine(long int high, long int low)
 {
@@ -60,23 +60,25 @@ unsigned long long combine(long int high, long int low)
 
 void generatekeyvalue(int xx)
 {
-     long int a;
-     long  int b;
-     int vectorcnt=0;
-     setindex[columnnum-1]=fixedvalue;
-for(int i=0;i<=6;i++){
-    if(columnnum-1!=i){
-        setindex[i]=permu[xx][vectorcnt++];
+    long int a;
+    long  int b;
+    int vectorcnt=0;
+    setindex[columnnum-1]=fixedvalue;
+    for(int i=0; i<=6; i++)
+    {
+        if(columnnum-1!=i)
+        {
+            setindex[i]=permu[xx][vectorcnt++];
+        }
+
     }
-
-}
-   a=(setindex[0]*setsize[2]*setsize[4]*setsize[6])+(setindex[2]*setsize[4]*setsize[6])+(setindex[4]*setsize[6])+setindex[6];
-            b=(setindex[1]*setsize[3]*setsize[5])+(setindex[3]*setsize[5])+setindex[5];
+    a=(setindex[0]*setsize[2]*setsize[4]*setsize[6])+(setindex[2]*setsize[4]*setsize[6])+(setindex[4]*setsize[6])+setindex[6];
+    b=(setindex[1]*setsize[3]*setsize[5])+(setindex[3]*setsize[5])+setindex[5];
 
 
 
 
-unsigned long long int com=combine(a,b);
+    unsigned long long int com=combine(a,b);
     int binnum=checkexist(com);
     if(binnum!=-1)
     {
@@ -86,11 +88,13 @@ unsigned long long int com=combine(a,b);
         {
             int veccnt=0;
             cout<<sets[columnnum-1][fixedvalue]<<" ";
-            for(int i=0;i<=6;i++){
-                    if(columnnum-1!=i){
-                        int m=permu[xx][veccnt++];
-               cout<< sets[i][m]<<"  ";
-                    }
+            for(int i=0; i<=6; i++)
+            {
+                if(columnnum-1!=i)
+                {
+                    int m=permu[xx][veccnt++];
+                    cout<< sets[i][m]<<"  ";
+                }
 
             }
             cout<<endl;
@@ -108,7 +112,7 @@ unsigned long long int com=combine(a,b);
 
 int wherebin(unsigned long long int value,int binnum)
 {
-      mycnt++;
+    mycnt++;
 
     int flag=0;
     stringstream ss;
@@ -123,7 +127,7 @@ int wherebin(unsigned long long int value,int binnum)
     {
         if(xyz[i]==value)
         {
-             cout<<"Congratulation!! relation found for this key "<<endl;
+            cout<<"Congratulation!! relation found for this key "<<endl;
             flag=1;
             cout<<endl<<endl<<endl;
             cout<<name<<endl;
@@ -131,7 +135,6 @@ int wherebin(unsigned long long int value,int binnum)
             break;
         }
     }
-
     return flag;
 }
 
@@ -165,19 +168,23 @@ int findindexinvector(int num,string value)
 
 }
 
-void call(int id){
-    if(id==permutationnum){
+void call(int id)
+{
+    if(id==permutationnum)
+    {
 
-        for(int i=0;i<temporary.size();i++){
+        for(int i=0; i<temporary.size(); i++)
+        {
 
             permu[totalper].push_back(temporary[i]);
         }
 
-    totalper++;
+        totalper++;
 
         return;
     }
-    for(int i=0;i<binnas[id].size();i++){
+    for(int i=0; i<binnas[id].size(); i++)
+    {
         temporary.push_back(binnas[id][i]);
         call(id+1);
         temporary.pop_back();
@@ -188,22 +195,24 @@ void call(int id){
 
 
 
-void initializepermutation(){
+void initializepermutation()
+{
     int veccnt=0;
-      for(int i=0;i<7;i++){
-            if(columnnum-1!=i){
-                for(int j=0;j<setsize[i];j++){
-            binnas[veccnt].push_back(j);
-        }
-cout<<endl;
-veccnt++;
+    for(int i=0; i<7; i++)
+    {
+        if(columnnum-1!=i)
+        {
+            for(int j=0; j<setsize[i]; j++)
+            {
+                binnas[veccnt].push_back(j);
             }
+            veccnt++;
+        }
 
-      }
+    }
 
+    call(0);
 
-call(0);
-cout<<"ok";
 }
 
 
@@ -229,19 +238,12 @@ void initialize()
                 if(cnt!=0)
                 {
 
-
                     sets[cnt-1].push_back(val);
                 }
-
-
-
 
                 pch = strtok (NULL, ",");
             }
             cnt++;
-
-
-
         }
 
     }

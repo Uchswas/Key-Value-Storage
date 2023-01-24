@@ -105,9 +105,23 @@ int main()
         }
     }
     out<<endl;
-    cout<<endl;
-    cout<<"Others are Primary Key or Have Same Value Everywhere"<<endl;
-    cout<<"And the size of our 2D matrix is : "<<a<<"x"<<b<<endl;
+    cout<<endl<<"Others are Primary Key or Have Same Value Everywhere"<<endl;
+    cout<<"And the size of matrix is : "<<a<<"x"<<b<<endl;
+
+    for(int xx=0; xx<9; xx++)
+    {
+        if(keyind[xx]==1 && xx!=7)
+        {
+            for (set<string>::iterator i = s[xx].begin(); i != s[xx].end(); i++)
+            {
+                string element = *i;
+                out<<element<<",";
+            }
+            out<<endl;
+        }
+    }
+    cout<<s[4].size();
+    out<<"AM,PM,"<<endl;
     create();
 }
 
@@ -118,11 +132,11 @@ void create(void)
     FILE *fp = fopen("dataset.csv", "r");
     char *token;
     int i;
-    cout<<"now creating"<<endl;
     int cnt=0;
     if(fp != NULL)
     {
         char * pch;
+
         char line[100];
         vector<string> eval;
         int setindex[7];
@@ -141,6 +155,7 @@ void create(void)
                 if(x==setind[realcount])
                 {
                     eval.push_back(pch);
+
                     setindex[realcount]=findindex(s[x],pch);
                     realcount++;
                 }
@@ -183,15 +198,14 @@ void create(void)
         b[anotherindex]=a[newcnt++];
         if(i%100==0)
         {
+
             stringstream ss;
             ss << 'v' << filename<<".bin";
             string name=ss.str();
             const char * c = name.c_str();
-            cout<<c<<endl;
             FILE *f1 = fopen(c, "wb");
             assert(f1);
             size_t r1 = fwrite(b, sizeof b[0], 100, f1);
-            printf("wrote %u elements into bin no ", r1,  sizeof(a));
             fclose(f1);
             filename++;
             anotherindex=0;
@@ -202,8 +216,5 @@ void create(void)
         keyvalue<<a[i]<<endl;
 
     }
-
-
-
 
 }
