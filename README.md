@@ -1,8 +1,8 @@
-# Key Value Storage on Higher Dimentional Data
+## Key Value Storage on Higher Dimentional Data
 
 An Efficient storage system for Higher Dimentional Data .This research work has done as my undergraduate thesis
 
-Overview
+### Overview
 --------
 
 The Generalized Two-dimensional Array (G2A) can be used to represent an n-dimensional (nD) array. By mapping the higher-dimensional data into a 2D array, the index (x, y) of each element of that 2D array is used to generate the corresponding key of the record. After storing the keys in a bin-based file system, we design three query paradigms to search for values.
@@ -12,7 +12,7 @@ The Generalized Two-dimensional Array (G2A) can be used to represent an n-dimens
 
 
 
-Build
+### Build
 -------
 To create the keyvalues for the dataset, run`create.cpp`
 
@@ -24,7 +24,7 @@ while(fgets(line, sizeof line, fp) != NULL && cnt<10000)
 Here, the system will create key values for the first 10,000 rows of the `dataset.csv` file and store the key values in different bin files.
 
 
-Exact Matching
+####Exact Matching
 -------
 
 Run `exact match.cpp`
@@ -38,7 +38,7 @@ Input the values of a row of the csv file to check whether it exists
 colunm `id` is excluded as it is a primary key
 
 
-Single key Query 
+####Single key Query 
 ----------------------
 
 For Single Key Query, run `singlekeysearch.cpp`
@@ -49,7 +49,7 @@ For example, to determine the relationship of data 106 in column 1, the input wi
 1       106	   
 </pre>
 
-Range Key Query
+#### Range Key Query
 ----------------------
 For Range Key Query, run `rangevaluesearch.cpp`
 
