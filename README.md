@@ -3,7 +3,7 @@
 An Efficient storage system for Higher Dimentional Data .This research work has done as my undergraduate thesis
 
 ### Overview
---------
+
 
 The Generalized Two-dimensional Array (G2A) can be used to represent an n-dimensional (nD) array. By mapping the higher-dimensional data into a 2D array, the index (x, y) of each element of that 2D array is used to generate the corresponding key of the record. After storing the keys in a bin-based file system, we design three query paradigms to search for values.
 - Exact Matching
@@ -13,7 +13,7 @@ The Generalized Two-dimensional Array (G2A) can be used to represent an n-dimens
 
 
 ### Build
--------
+
 To create the keyvalues for the dataset, run`create.cpp`
 
 The number of rows for which keyvalues will be generated can be varied by changing the number in line 59 of `create.cpp` file
