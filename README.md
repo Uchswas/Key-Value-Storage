@@ -50,7 +50,7 @@ For example, to determine the relationship of data 106 in column 1, the input wi
 </pre>
 
 #### Range Key Query
-----------------------
+
 For Range Key Query, run `rangevaluesearch.cpp`
 
 Only the first column, this feature has been implemented.
