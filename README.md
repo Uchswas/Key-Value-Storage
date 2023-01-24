@@ -33,7 +33,7 @@ Input the values of a row of the csv file to check whether it exists
 
 ##### For instance, to check for the 7th row, input will be 
 <pre>
-106	   09:04.1	400	  MAGASIN	   11/3/2014    0:00  	 4:18:44  	  PM
+106	   09:04.1	400	  MAGASIN	   11/3/2014    0:00 	 4:18:44   PM
 </pre>
 colunm `id` is excluded as it is a primary key
 
