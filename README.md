@@ -1,4 +1,10 @@
-# Key-Value Storage on Higher Dimensional Data
+# Key-Value Storage on Higher-Dimensional Data
+
+![C++](https://img.shields.io/badge/C++-17-blue.svg)
+![Key-Value Storage](https://img.shields.io/badge/Key--Value--Storage-orange.svg)
+![High-Dimensional Data](https://img.shields.io/badge/High%20Dimensional--Data-yellow.svg)
+![Status](https://img.shields.io/badge/Status-Academic%20Research-green.svg)
+
 
 An efficient storage and query system for higher-dimensional data using Generalized Two-dimensional Array (G2A) and key-value storage techniques. This project was developed as part of an undergraduate thesis research work.
 
