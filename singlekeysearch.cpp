@@ -1,20 +1,19 @@
-
-#include  <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 void initialize();
-int  listelement[7]= {0};
-int fixedvalue;
-int totalper=0;
+int listelement[7]= {0};
+int fixedvalue;  // Fixed value index for the selected column
+int totalper=0;  // Total number of permutations
 int mycnt=0;
 int permutationnum=6;
-vector<string> sets[8];
-vector<int> temporary;
-vector<int> permu[1000000];
-vector<int> binnas[7];
+vector<string> sets[8];  // Unique values for each column
+vector<int> temporary;  // Temporary storage for permutation generation
+vector<int> permu[1000000];  // All permutations
+vector<int> binnas[7];  // Possible indices for each column
 int currentvector;
 void call(int);
 int setindex[9];
-int  currentlength=0;
+int currentlength=0;
 int setsize[8];
 void takelength();
 int permutation();
@@ -24,12 +23,12 @@ void initializemybin();
 int findindexinvector(int, string);
 set <unsigned long long int> binlink;
 void generatekeyvalue(int);
-unsigned long long int combine(long  int,long  int);
+unsigned long long int combine(long int,long int);
 int checkexist(unsigned long long int);
 int wherebin(unsigned long long int,int);
-int columnnum;
+int columnnum;  // Column number for single key query
 
-
+// Single key query: finds all relationships for a given value in one column
 int main()
 {
     out.open("paul.txt");
@@ -40,17 +39,17 @@ int main()
     initializemybin();
 
     cin>>columnnum;
-    initializepermutation();
+    initializepermutation();  // Generate all permutations for other columns
     cout<<"Enter Value"<<endl;
     cin>>input;
     fixedvalue=findindexinvector(columnnum-1,input);
     cout<<"Index of single key:"<<fixedvalue<<endl;
+    // Check each permutation to find relationships
     for(int i=0; i<totalper; i++)
     {
         currentvector=i;
         generatekeyvalue(i);
     }
-
 }
 
 unsigned long long combine(long int high, long int low)
@@ -58,12 +57,14 @@ unsigned long long combine(long int high, long int low)
     return (((uint64_t) high) << 32) | ((uint64_t) low);
 }
 
+// Generates key for a permutation and checks if it exists
 void generatekeyvalue(int xx)
 {
     long int a;
-    long  int b;
+    long int b;
     int vectorcnt=0;
-    setindex[columnnum-1]=fixedvalue;
+    setindex[columnnum-1]=fixedvalue;  // Set fixed column value
+    // Fill other columns from permutation
     for(int i=0; i<=6; i++)
     {
         if(columnnum-1!=i)
@@ -72,19 +73,18 @@ void generatekeyvalue(int xx)
         }
 
     }
+    // G2A transformation
     a=(setindex[0]*setsize[2]*setsize[4]*setsize[6])+(setindex[2]*setsize[4]*setsize[6])+(setindex[4]*setsize[6])+setindex[6];
     b=(setindex[1]*setsize[3]*setsize[5])+(setindex[3]*setsize[5])+setindex[5];
 
-
-
-
+    // Generate key and search in bins
     unsigned long long int com=combine(a,b);
     int binnum=checkexist(com);
     if(binnum!=-1)
     {
         int last=wherebin(com,binnum);
 
-        if(last)
+        if(last)  // Key found - relationship exists
         {
             int veccnt=0;
             cout<<sets[columnnum-1][fixedvalue]<<" ";
@@ -98,29 +98,22 @@ void generatekeyvalue(int xx)
 
             }
             cout<<endl;
-
-
-
         }
-
     }
-
-
 }
 
 
-
+// Searches for key in a specific bin file
 int wherebin(unsigned long long int value,int binnum)
 {
     mycnt++;
-
     int flag=0;
     stringstream ss;
     ss << 'v' <<binnum<<".bin";
     string name=ss.str();
     const char * c = name.c_str();
     FILE *f2 = fopen(c, "rb");
-    unsigned long long   int xyz[1000];
+    unsigned long long int xyz[1000];
     size_t r2 = fread(xyz, sizeof xyz[0],100, f2);
     fclose(f2);
     for(int i = 0; i <100; i++)
@@ -138,10 +131,10 @@ int wherebin(unsigned long long int value,int binnum)
     return flag;
 }
 
-
+// Finds which bin contains the key (binary search on bin links)
 int checkexist(unsigned long long int keyvalue)
 {
-    set<unsigned long long int> ::iterator it;
+    set<unsigned long long int>::iterator it;
     int cnt=0;
     for(it=binlink.begin(); it!=binlink.end(); it++)
     {
@@ -154,6 +147,7 @@ int checkexist(unsigned long long int keyvalue)
     return -1;
 }
 
+// Finds index of a value in a specific column's set
 int findindexinvector(int num,string value)
 {
     int res=-1;
@@ -165,22 +159,17 @@ int findindexinvector(int num,string value)
         }
     }
     return res;
-
 }
 
 void call(int id)
 {
     if(id==permutationnum)
     {
-
         for(int i=0; i<temporary.size(); i++)
         {
-
             permu[totalper].push_back(temporary[i]);
         }
-
         totalper++;
-
         return;
     }
     for(int i=0; i<binnas[id].size(); i++)
@@ -190,9 +179,6 @@ void call(int id)
         temporary.pop_back();
     }
 }
-
-
-
 
 
 void initializepermutation()
@@ -208,14 +194,12 @@ void initializepermutation()
             }
             veccnt++;
         }
-
     }
-
     call(0);
-
 }
 
 
+// Loads unique values for each column from output.txt
 void initialize()
 {
     FILE *fp = fopen("output.txt", "r");
@@ -226,34 +210,26 @@ void initialize()
     {
         char * pch;
         char line[10000];
-        while(fgets(line, sizeof line, fp) != NULL )
+        while(fgets(line, sizeof line, fp) != NULL)
         {
-
             pch = strtok (line,",");
             int x=0;
-            while (pch != NULL )
+            while (pch != NULL)
             {
                 string val=pch;
-
                 if(cnt!=0)
                 {
-
                     sets[cnt-1].push_back(val);
                 }
-
                 pch = strtok (NULL, ",");
             }
             cnt++;
         }
-
     }
-
 }
 
 void initializemybin()
 {
-
-
     FILE *fp = fopen("links.txt", "r");
     int i,res=-1;
     int cnt=0;
@@ -269,7 +245,6 @@ void initializemybin()
                 int x=0;
                 while (pch != NULL)
                 {
-
                     char *pend;
                     unsigned long long int binvalue=strtoull(pch,&pend,10);
                     binlink.insert(binvalue);
@@ -280,15 +255,7 @@ void initializemybin()
         }
         fclose(fp);
     }
-
-
-
 }
-
-
-
-
-
 
 
 void takelength()
@@ -313,15 +280,11 @@ void takelength()
                     int inval=atoi(pch);
                     setsize[x]=inval;
                     x++;
-
                     pch = strtok (NULL, " ");
                 }
             }
             break;
-
         }
         fclose(fp);
     }
-
-
 }

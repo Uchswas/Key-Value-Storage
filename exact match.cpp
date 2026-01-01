@@ -5,16 +5,16 @@ int setsize[7];
 void initializemybin();
 int wherebin(unsigned long long int,int);
 int checkexist(unsigned long long int);
-set<unsigned long long int > binlink;
+set<unsigned long long int> binlink;  // Links to bins stored in primary memory
+// Combines two 32-bit values into a 64-bit key
 unsigned long long combine(unsigned int high, unsigned int low)
 {
     return (((uint64_t) high) << 32) | ((uint64_t) low);
 }
 
-int  findindex(int y,string xval)
+// Finds index of a value in output.txt (column mapping)
+int findindex(int y,string xval)
 {
-
-
     FILE *fp = fopen("output.txt", "r");
     char *token;
     int i,res=-1;
@@ -47,7 +47,7 @@ int  findindex(int y,string xval)
     return res;
 }
 
-
+// Reads set sizes from output.txt
 void takelength()
 {
     FILE *fp = fopen("output.txt", "r");
@@ -74,19 +74,19 @@ void takelength()
                 }
             }
             break;
-
         }
         fclose(fp);
     }
-
 }
 
+// Exact match query: checks if a record exists in the dataset
 int main()
 {
     initializemybin();
     cout<<"Please Enter the Number You Want to Search : :"<<endl;
     int setindex[7];
     takelength();
+    // Get input values for each column
     for(int i=0; i<7; i++)
     {
         cout<<i+1<<" th number : ";
@@ -95,7 +95,7 @@ int main()
         setindex[i]=findindex(i+2,x);
         if(setindex[i]==-1)
         {
-            cout<<"No element there, Try Again Please"<<endl; ;
+            cout<<"No element there, Try Again Please"<<endl;
             i--;
             continue;
         }
@@ -104,13 +104,15 @@ int main()
             cout<<"OK"<<endl;
         }
     }
-    unsigned long  int x0;
-    unsigned long  int x1;
+    // Generate key using G2A formula
+    unsigned long int x0;
+    unsigned long int x1;
     x0=(setindex[0]*setsize[2]*setsize[4]*setsize[6])+(setindex[2]*setsize[4]*setsize[6])+(setindex[4]*setsize[6])+setindex[6];
     x1=(setindex[1]*setsize[3]*setsize[5])+(setindex[3]*setsize[5])+setindex[5];
     cout<<x0<<" "<<x1<<endl;
-    unsigned long long  int com=combine(x0,x1);
+    unsigned long long int com=combine(x0,x1);
 
+    // Search for key in bins
     int binnum=checkexist(com);
     cout<<"Key value is: "<<com<<endl;
     if(binnum!=-1)
@@ -123,13 +125,10 @@ int main()
     }
     else
         cout<<"Oh data doesn,t exist"<<endl;
-
-
 }
+// Searches for key in a specific bin file
 int wherebin(unsigned long long int value,int binnum)
 {
-
-
     int flag=0;
     stringstream ss;
     ss << 'v' <<binnum<<".bin";
@@ -137,7 +136,7 @@ int wherebin(unsigned long long int value,int binnum)
     const char * c = name.c_str();
     cout<<c<<endl;
     FILE *f2 = fopen(c, "rb");
-    unsigned long long   int xyz[1000];
+    unsigned long long int xyz[1000];
     size_t r2 = fread(xyz, sizeof xyz[0],100, f2);
     fclose(f2);
     for(int i = 0; i <100; i++)
@@ -152,9 +151,10 @@ int wherebin(unsigned long long int value,int binnum)
 
     return flag;
 }
+// Finds which bin contains the key (binary search on bin links)
 int checkexist(unsigned long long int keyvalue)
 {
-    set<unsigned long long int> ::iterator it;
+    set<unsigned long long int>::iterator it;
     int cnt=0;
     for(it=binlink.begin(); it!=binlink.end(); it++)
     {
@@ -166,10 +166,9 @@ int checkexist(unsigned long long int keyvalue)
 
     return -1;
 }
+// Loads bin links from links.txt into memory
 void initializemybin()
 {
-
-
     FILE *fp = fopen("links.txt", "r");
     int i,res=-1;
     int cnt=0;
@@ -185,7 +184,6 @@ void initializemybin()
                 int x=0;
                 while (pch != NULL)
                 {
-
                     char *pend;
                     unsigned long long int binvalue=strtoull(pch,&pend,10);
                     binlink.insert(binvalue);
@@ -196,6 +194,4 @@ void initializemybin()
         }
         fclose(fp);
     }
-
 }
-
